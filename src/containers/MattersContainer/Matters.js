@@ -16,10 +16,12 @@ import './Matter.css'
 
 class Matters extends Component {
 
-    componentDidMount(){
-      console.log(this.props)
-        this.props.fetchMatters()
-    }
+    // componentDidMount(){
+    //     this.props.fetchMatters()
+    //     console.log(this.props.matters)
+
+    // }
+
 
     render() {
 
@@ -41,7 +43,8 @@ class Matters extends Component {
                 {this.props.matters.map((matter => (
                   <TableRow key={matter.id} >
                     <TableCell>
-                        <Link to={`/matters/${matter.id}`}>{matter.case_title} </Link>                                    
+                        <Link to={`/matters/${matter.id}`}
+                            >{matter.case_title} </Link>                                    
                     </TableCell>
                     <TableCell>
                         {matter.client}
@@ -52,10 +55,6 @@ class Matters extends Component {
             </Table>   
             </Paper>
           </div>
-          {/* <Route 
-            path={`${this.props.match.url}/:id`} 
-            // path={`${/matters/id`}}
-            render={routerProps => <Matter {...routerProps} matters={matters} /> }/> */}
           </React.Fragment>
         )
     }
@@ -69,7 +68,10 @@ const mDTP = dispatch => {
 
 // const mSTP = (state) => ( {state} )
 const mSTP = state => {
-  return {matters: state.matters};
+  console.log(state.matters)
+  return {matters: state.matters
+    
+  };
 }
 
 // const mSTP = state => {

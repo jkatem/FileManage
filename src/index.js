@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'
 import MatterReducer from './redux/reducers/matterReducer'
@@ -10,7 +10,10 @@ import App from './App';
 // import matterReducer from './redux/reducers/matterReducer';
 
 const store = createStore(
-  MatterReducer, applyMiddleware(thunk)
+  MatterReducer, 
+  compose(
+    applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 );
 
 ReactDOM.render(

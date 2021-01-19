@@ -1,4 +1,4 @@
-
+import { FETCH_MATTERS } from '../actions/mattersActions'; 
 let initialState = {
     matters: [],
     loading: false,
@@ -10,7 +10,7 @@ const matterReducer = (state = initialState, action) => {
     switch(action.type) {
 
         case "FETCH_MATTERS":
-            // debugger
+            // debugger 
             return {
                 ...state,
                 matters: action.payload,
@@ -39,3 +39,44 @@ const matterReducer = (state = initialState, action) => {
 }
 
 export default matterReducer;
+
+/*
+'./Reducers.js'
+
+import { CREATE_TODO, REMOVE_TODO } from './actions';
+
+export const todos = (state = [], action) => {
+    const { type, payload } = action;
+
+    switch (type) {
+        case CREATE_TODO: {
+            const {text } = payload;
+            const newTodo = {
+                text,
+                isCompleted: false,
+            };
+        }
+    }
+}
+
+*********************************
+action.js
+
+export const CREATE_TODO= 'CREATE_TODO';
+export const createTODO = text => ({
+    type: CREATE_TODO,
+    payload: { text },
+});
+
+export const REMOVE_TODO = 'REMOVE_TODO';
+export const removeTodo = text => ({
+    type: REMOVE_TODO,
+    payload: { text },
+})
+
+*********************************
+'store.js'
+    import { createStore, combineReducers}
+
+
+*/

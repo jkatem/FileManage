@@ -9,12 +9,19 @@ import Dashboard from './containers/Dashboard';
 import { connect } from 'react-redux'
 import Navbar from './components/Navbar/NavBar'
 import Sidebar from './components/Sidebar'
+import { fetchMatters } from './redux/actions/mattersActions'
+import matterReducer from './redux/reducers/matterReducer';
 
 
 class App extends Component {
 
+  componentDidMount(){
+    this.props.fetchMatters()
+    console.log(this.props)
+}
+
   state = {
-    showModal: false
+    showModal: false,
   }
 
   getModal = () => {
@@ -47,8 +54,20 @@ class App extends Component {
             <Route exact path='/tasks' component={Tasks} />
             <Route exact path='/matters/new' />
             <Route exact path='/matters/:id' render={(routerProps) => {
-              console.log(routerProps)
-            }}/>
+              // debugger
+              const matterId = parseInt(routerProps.match.params.id)
+              const matterObj = this.props.state.matters.find(matterArrObj => matterArrObj.id === matterId)
+              if (matterObj) {                
+                return (
+                  <Matter
+                    key={matterObj.id}
+                    // matters={console.log(matterObj)} 
+                    matters={matterObj}
+                    {...routerProps}
+                  />                 
+                )
+              }
+              }} />
 
           </Switch>
      
@@ -58,16 +77,24 @@ class App extends Component {
   }
 }
 
-const mSTP = state => {
-  return {
-    // matters: console.log(state.matters)
-    matters: state.matters
+// const mSTP = state => {
+//   return {
+    
+//     matters: console.log(state.matters)
+//     // matters: state.matters
 
+//   }
+// }
+const mSTP = (state) => ({ state })
+
+
+const mDTP = dispatch => {
+  return {
+    fetchMatters: () => dispatch(fetchMatters())
   }
 }
 
-// export default App;
-export default connect(mSTP)(App);
+export default connect(mSTP, mDTP)(App);
 
 
 /*
@@ -81,5 +108,9 @@ export default connect(mSTP)(App);
 
 - matters: console.log(state.matters)
     ==> state.matters provides me list of all my matters
+
+- console.log(this.props)
+    => 
+
 
 */
